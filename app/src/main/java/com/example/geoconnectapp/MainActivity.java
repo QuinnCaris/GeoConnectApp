@@ -1,12 +1,20 @@
 package com.example.geoconnectapp;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
+import android.widget.Button;
+import com.google.android.gms.location.FusedLocationProviderClient;
 
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -16,10 +24,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.geoconnectapp.databinding.ActivityMainBinding;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
+    private FusedLocationProviderClient fusedLocationProviderClient;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
+    private Button getLocationBtn;
+
+    final int locationRequestCode = 1000;
+
+    private double userLat = 0.0, userLong = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +58,64 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_friends, R.id.nav_map)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        // Instantiating from our fused location services provider
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        // new Button
+        getLocationBtn = findViewById(R.id.locationBtn);
+
+        getLocationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                getLocation();
+            }
+        });
+    }
+
+    private void getLocation() {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Get users permission
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION},
+                    locationRequestCode);
+        }
+        else {
+            // Get user current location
+            this.fusedLocationProviderClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
+                    .addOnSuccessListener(location -> {
+                        if (location != null) {
+                            userLat = location.getLatitude();
+                            userLong = location.getLongitude();
+                            Toast.makeText(this, String.format(Locale.US, "%s %s", userLat, userLong), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch(requestCode) {
+            case 1000:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Get user location
+                    this.getLocation();
+                }
+                else {
+                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.geoconnectapp.ui.gallery;
+package com.example.geoconnectapp.ui.friends;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.geoconnectapp.databinding.FragmentGalleryBinding;
+import com.example.geoconnectapp.databinding.FragmentFriendsBinding;
 
-public class GalleryFragment extends Fragment {
+public class FriendsFragment extends Fragment {
 
-    private FragmentGalleryBinding binding;
+    private FragmentFriendsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        GalleryViewModel galleryViewModel =
-                new ViewModelProvider(this).get(GalleryViewModel.class);
+        FriendsViewModel friendsViewModel =
+                new ViewModelProvider(this).get(FriendsViewModel.class);
 
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
+        binding = FragmentFriendsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textGallery;
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textFriends;
+        friendsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

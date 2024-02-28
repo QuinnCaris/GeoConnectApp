@@ -1,16 +1,16 @@
-package com.example.geoconnectapp.ui.slideshow;
+package com.example.geoconnectapp.ui.map;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SlideshowViewModel extends ViewModel {
+public class MapViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public SlideshowViewModel() {
+    public MapViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        mText.setValue("This is the map fragment");
     }
 
     public LiveData<String> getText() {
