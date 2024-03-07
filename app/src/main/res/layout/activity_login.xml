@@ -40,10 +40,11 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/sora_bold"
             android:text="@string/welcome_back"
+            android:textColor="#757575"
             android:textSize="35sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/sora_bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView3"
@@ -51,12 +52,11 @@
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
             android:text="@string/lets_go_geocache"
+            android:textColor="#9F9F9F"
             tools:layout_editor_absoluteX="48dp"
             tools:layout_editor_absoluteY="183dp" />
 
     </LinearLayout>
-
-
 
 
     <EditText
@@ -68,12 +68,13 @@
         android:layout_marginEnd="50dp"
         android:background="@drawable/custom_edittext"
         android:drawableStart="@drawable/phone"
+        android:drawablePadding="8dp"
         android:fontFamily="sans-serif"
         android:hint="@string/phone_number"
-        android:drawablePadding="8dp"
         android:paddingStart="8dp"
         android:paddingEnd="4dp"
         android:textColor="@color/black"
+        android:textColorHint="@color/hintColor"
         app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,13 +90,14 @@
         android:background="@drawable/custom_edittext"
         android:drawableStart="@drawable/lock"
         android:drawableEnd="@drawable/eye"
+        android:drawablePadding="8dp"
         android:fontFamily="sans-serif"
         android:hint="@string/password"
-        android:drawablePadding="8dp"
+        android:inputType="textPassword"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         android:textColor="@color/black"
-        android:inputType="textPassword"
+        android:textColorHint="@color/hintColor"
         app:layout_constraintBottom_toTopOf="@+id/loginbtn"
         app:layout_constraintEnd_toEndOf="@id/userPhoneNumber"
         app:layout_constraintStart_toStartOf="@id/userPhoneNumber"
@@ -130,8 +132,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ask_sign_up"
-            android:textStyle="bold"
-            android:textSize="11sp"/>
+            android:textColor="#757575"
+            android:textSize="11sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/sign_in"

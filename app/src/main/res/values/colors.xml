@@ -12,4 +12,5 @@
     <color name="darker_pale_beige">#CCC9C9</color>
     <color name="kelly_green">#4CBB17</color>
     <color name="pale_white">#FBFCF8</color>
+    <color name="hintColor">#C4C4C4</color>
 </resources>

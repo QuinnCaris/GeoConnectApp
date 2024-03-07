@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".RegistrationPage">
 
     <ImageView
@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/sora_bold"
             android:text="@string/hello"
+            android:textColor="#757575"
             android:textSize="40sp"
             android:textStyle="bold" />
 
@@ -49,6 +50,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
             android:text="@string/please_fill_in_the_details"
+            android:textColor="#666666"
             tools:layout_editor_absoluteX="48dp"
             tools:layout_editor_absoluteY="183dp" />
 
@@ -63,13 +65,14 @@
         android:layout_marginEnd="50dp"
         android:background="@drawable/custom_edittext"
         android:drawableStart="@drawable/user"
+        android:drawablePadding="8dp"
         android:fontFamily="sans-serif"
         android:hint="@string/enter_your_username"
-        android:textSize="15sp"
-        android:drawablePadding="8dp"
         android:paddingStart="8dp"
         android:paddingEnd="4dp"
         android:textColor="@color/black"
+        android:textColorHint="@color/hintColor"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/signInUserPhoneNum"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,9 +93,31 @@
         android:paddingStart="8dp"
         android:paddingEnd="4dp"
         android:textColor="@color/black"
+        android:textColorHint="@color/hintColor"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/signInPassword"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signInUsername" />
+
+    <EditText
+        android:id="@+id/verificationField"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="244dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/custom_edittext"
+        android:drawableStart="@drawable/phone"
+        android:drawablePadding="8dp"
+        android:fontFamily="sans-serif"
+        android:hint="@string/verification_code"
+        android:paddingStart="8dp"
+        android:paddingEnd="4dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/hintColor"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signInUsername" />
 
@@ -111,11 +136,13 @@
         android:paddingStart="8dp"
         android:paddingEnd="4dp"
         android:textColor="@color/black"
+        android:textColorHint="@color/hintColor"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/signInBtn"
-        app:layout_constraintEnd_toEndOf="@id/signInUserPhoneNum"
-        app:layout_constraintStart_toStartOf="@id/signInUserPhoneNum"
-        app:layout_constraintTop_toBottomOf="@+id/signInUserPhoneNum" />
+        app:layout_constraintHorizontal_bias="0.5"
+        card_view:layout_constraintBottom_toTopOf="@+id/signInBtn"
+        card_view:layout_constraintEnd_toEndOf="@id/signInUserPhoneNum"
+        card_view:layout_constraintStart_toStartOf="@id/signInUserPhoneNum"
+        card_view:layout_constraintTop_toBottomOf="@+id/signInUserPhoneNum" />
 
     <Button
         android:id="@+id/signInBtn"
@@ -123,20 +150,38 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/green"
+        android:onClick="signUp"
         android:text="@string/sign_up"
         android:textStyle="bold"
         app:cornerRadius="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/linear_layout4"
         app:layout_constraintEnd_toEndOf="@+id/signInPassword"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="@+id/signInPassword"
         app:layout_constraintTop_toBottomOf="@+id/signInPassword" />
+
+    <Button
+        android:id="@+id/submitVerification"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/green"
+        android:onClick="submitVerificationCode"
+        android:text="@string/verify"
+        android:textStyle="bold"
+        app:cornerRadius="24dp"
+        app:layout_constraintEnd_toEndOf="@+id/signInPassword"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="@+id/signInPassword"
+        app:layout_constraintTop_toBottomOf="@+id/verificationField" />
 
     <LinearLayout
         android:id="@+id/linear_layout4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="20dp"
         android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/signInBtn"
         app:layout_constraintHorizontal_bias="0.441"
         app:layout_constraintStart_toStartOf="@+id/signInBtn"
@@ -146,19 +191,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/already_have_an_account"
-            android:textStyle="bold"
-            android:textSize="11sp"/>
+            android:textColor="#666666"
+            android:textSize="11sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/sign_up_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:text="@string/log_in"
-            android:textStyle="bold"
-            android:textSize="11sp"
             android:textColor="@color/kelly_green"
-            android:layout_marginStart="5dp"/>
-
+            android:textSize="11sp"
+            android:textStyle="bold" />
 
 
     </LinearLayout>

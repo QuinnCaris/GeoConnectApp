@@ -30,4 +30,6 @@
     <string name="at_least_8_character">At Least 8 character</string>
     <string name="enter_your_username">Enter Your Username</string>
     <string name="phone_number">Phone Number</string>
+    <string name="verification_code">Verification code</string>
+    <string name="verify">Verify</string>
 </resources>
