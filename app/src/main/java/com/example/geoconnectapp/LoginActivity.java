@@ -11,10 +11,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText useremail;
+    private EditText userNum;
     private EditText password;
     private Button loginBtn;
-
     private TextView signIn;
 
     @Override
@@ -23,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
-        useremail = findViewById(R.id.useremail);
+        userNum = findViewById(R.id.userPhoneNumber);
         password = findViewById(R.id.password);
         loginBtn = findViewById(R.id.loginbtn);
         signIn = findViewById(R.id.sign_in);
@@ -31,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (useremail.getText().toString().equals("user") && password.getText().toString().equals("1234")) {
+                if (userNum.getText().toString().equals("user") && password.getText().toString().equals("1234")) {
                     Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 } else {
