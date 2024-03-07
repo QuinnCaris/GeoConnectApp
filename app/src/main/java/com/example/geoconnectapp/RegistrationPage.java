@@ -133,6 +133,8 @@ public class RegistrationPage extends AppCompatActivity {
                             // Update UI
                             Toast.makeText(RegistrationPage.this, "USER MADE AN ACCOUNT WITH PHONE NUMBER LETS GOOO",
                                     Toast.LENGTH_LONG).show();
+
+                            //TODO: go to home
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

@@ -109,6 +109,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/green"
+        android:onClick="logInClick"
         android:text="@string/login"
         android:textStyle="bold"
         app:cornerRadius="24dp"
