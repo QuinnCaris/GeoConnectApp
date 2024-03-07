@@ -28,8 +28,9 @@
     <string name="please_fill_in_the_details">Please fill in the details.</string>
     <string name="enter_your_phone_number">Enter Your Phone Number</string>
     <string name="at_least_8_character">At Least 8 character</string>
-    <string name="enter_your_username">Enter Your Username</string>
+    <string name="enter_your_email">Enter Your Email</string>
     <string name="phone_number">Phone Number</string>
     <string name="verification_code">Verification code</string>
     <string name="verify">Verify</string>
+    <string name="email">Email</string>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,7 +15,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException;
@@ -102,9 +105,10 @@ public class RegistrationPage extends AppCompatActivity {
 
     public void signUp(View v) {
         Log.w(TAG, "signup button worked");
+        TextView phoneNum = ((TextView) findViewById(R.id.signInUserPhoneNum));
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(mAuth)
-                        .setPhoneNumber("+1 650-555-3434")       // Phone number to verify
+                        .setPhoneNumber(phoneNum.getText().toString())       // Phone number to verify
                         .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
                         .setActivity(this)                 // (optional) Activity for callback binding
                         // If no activity is passed, reCAPTCHA verification can not be used.
@@ -123,6 +127,9 @@ public class RegistrationPage extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
 
                             FirebaseUser user = task.getResult().getUser();
+
+                            linkToEmail();
+
                             // Update UI
                             Toast.makeText(RegistrationPage.this, "USER MADE AN ACCOUNT WITH PHONE NUMBER LETS GOOO",
                                     Toast.LENGTH_LONG).show();
@@ -134,6 +141,26 @@ public class RegistrationPage extends AppCompatActivity {
                                 Toast.makeText(RegistrationPage.this, "Verification code was invalid",
                                         Toast.LENGTH_LONG).show();
                             }
+                        }
+                    }
+                });
+    }
+
+    private void linkToEmail() {
+        String email = ((EditText) findViewById(R.id.signInEmail)).getText().toString();
+        String password = ((EditText) findViewById(R.id.signInPassword)).getText().toString();
+        AuthCredential credential = EmailAuthProvider.getCredential(email, password);
+        mAuth.getCurrentUser().linkWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "linkWithCredential:success");
+                            //FirebaseUser user = task.getResult().getUser();
+                        } else {
+                            Log.w(TAG, "linkWithCredential:failure", task.getException());
+                            Toast.makeText(RegistrationPage.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

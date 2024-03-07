@@ -33,7 +33,7 @@
         app:layout_constraintHorizontal_bias="0.15
 "
         app:layout_constraintStart_toStartOf="@+id/LoginLogo"
-        app:layout_constraintBottom_toTopOf="@+id/userPhoneNumber"
+        app:layout_constraintBottom_toTopOf="@+id/userEmail"
         app:layout_constraintTop_toBottomOf="@id/LoginLogo">
 
         <TextView
@@ -60,17 +60,17 @@
 
 
     <EditText
-        android:id="@+id/userPhoneNumber"
+        android:id="@+id/userEmail"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/custom_edittext"
-        android:drawableStart="@drawable/phone"
+        android:drawableStart="@drawable/user"
         android:drawablePadding="8dp"
         android:fontFamily="sans-serif"
-        android:hint="@string/phone_number"
+        android:hint="@string/email"
         android:paddingStart="8dp"
         android:paddingEnd="4dp"
         android:textColor="@color/black"
@@ -99,9 +99,9 @@
         android:textColor="@color/black"
         android:textColorHint="@color/hintColor"
         app:layout_constraintBottom_toTopOf="@+id/loginbtn"
-        app:layout_constraintEnd_toEndOf="@id/userPhoneNumber"
-        app:layout_constraintStart_toStartOf="@id/userPhoneNumber"
-        app:layout_constraintTop_toBottomOf="@+id/userPhoneNumber" />
+        app:layout_constraintEnd_toEndOf="@id/userEmail"
+        app:layout_constraintStart_toStartOf="@id/userEmail"
+        app:layout_constraintTop_toBottomOf="@+id/userEmail" />
 
     <Button
         android:id="@+id/loginbtn"

@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
-        userNum = findViewById(R.id.userPhoneNumber);
+        userNum = findViewById(R.id.userEmail);
         password = findViewById(R.id.password);
         loginBtn = findViewById(R.id.loginbtn);
         signIn = findViewById(R.id.sign_in);
