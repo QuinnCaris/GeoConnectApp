@@ -12,4 +12,22 @@
     <string name="menu_friends">Friends</string>
     <string name="menu_map">map</string>
     <string name="menumap">Map</string>
+
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">LOGIN</string>
+    <string name="ask_sign_up">Don\'t have an account?</string>
+    <string name="welcoming">Welcome to\nGeoConnect</string>
+    <string name="logo">Logo</string>
+    <string name="sign_up_now">Sign Up Now</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="log_in">LOG IN</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="lets_go_geocache">Let\'s go Geocache!</string>
+    <string name="hello">Hello!</string>
+    <string name="please_fill_in_the_details">Please fill in the details.</string>
+    <string name="enter_your_email_address">Enter Your Email Address</string>
+    <string name="at_least_8_character">At Least 8 character</string>
+    <string name="enter_your_username">Enter Your Username</string>
 </resources>

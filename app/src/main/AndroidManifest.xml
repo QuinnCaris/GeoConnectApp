@@ -15,16 +15,41 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GeoConnectApp"
         tools:targetApi="31">
+<!--        <activity-->
+<!--            android:name=".MainActivity"-->
+<!--            android:exported="true"-->
+<!--            android:label="@string/app_name"-->
+<!--            android:theme="@style/Theme.GeoConnectApp.NoActionBar">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
         <activity
-            android:name=".MainActivity"
+            android:name=".IntroActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.GeoConnectApp.NoActionBar">
+            android:label="Activity Intro Page">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true"
+            android:label="Activity Login Page">
+
+        </activity>
+        <activity
+            android:name=".RegistrationPage"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+
         </activity>
     </application>
 
