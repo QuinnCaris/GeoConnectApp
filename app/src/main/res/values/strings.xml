@@ -13,7 +13,6 @@
     <string name="menu_map">map</string>
     <string name="menumap">Map</string>
 
-    <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">LOGIN</string>
     <string name="ask_sign_up">Don\'t have an account?</string>
@@ -27,7 +26,8 @@
     <string name="lets_go_geocache">Let\'s go Geocache!</string>
     <string name="hello">Hello!</string>
     <string name="please_fill_in_the_details">Please fill in the details.</string>
-    <string name="enter_your_email_address">Enter Your Email Address</string>
+    <string name="enter_your_phone_number">Enter Your Phone Number</string>
     <string name="at_least_8_character">At Least 8 character</string>
     <string name="enter_your_username">Enter Your Username</string>
+    <string name="phone_number">Phone Number</string>
 </resources>
