@@ -13,8 +13,8 @@
     <ImageView
         android:id="@+id/RegisterLogo"
         android:layout_width="317dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="40dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="20dp"
         android:contentDescription="@string/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
         android:id="@+id/linear_layout3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:orientation="vertical"
         android:paddingBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/signInEmail"
@@ -153,6 +153,7 @@
         android:onClick="signUp"
         android:text="@string/sign_up"
         android:textStyle="bold"
+        android:enabled="false"
         app:cornerRadius="24dp"
         app:layout_constraintBottom_toTopOf="@+id/linear_layout4"
         app:layout_constraintEnd_toEndOf="@+id/signInPassword"
@@ -196,7 +197,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/sign_up_text"
+            android:id="@+id/login_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"

@@ -2,11 +2,14 @@ package com.example.geoconnectapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,7 +39,12 @@ public class RegistrationPage extends AppCompatActivity {
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
-    private TextView signUp;
+    private TextView login;
+
+    private EditText editTextEmail;
+    private EditText editTextPhoneNum;
+    private EditText editTextPW;
+    private Button signUpBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,9 +101,19 @@ public class RegistrationPage extends AppCompatActivity {
 
         setContentView(R.layout.activity_registration_page);
 
-        signUp = findViewById(R.id.sign_up_text);
+        editTextEmail = findViewById(R.id.signInEmail);
+        editTextPhoneNum = findViewById(R.id.signInUserPhoneNum);
+        editTextPW = findViewById(R.id.signInPassword);
+        signUpBtn = findViewById(R.id.signInBtn);
 
-        signUp.setOnClickListener(new View.OnClickListener() {
+        // Add TextWatcher for email and password fields
+        editTextEmail.addTextChangedListener(textWatcher);
+        editTextPhoneNum.addTextChangedListener(textWatcher);
+        editTextPW.addTextChangedListener(textWatcher);
+
+        login = findViewById(R.id.login_text);
+
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RegistrationPage.this, LoginActivity.class));
@@ -103,8 +121,32 @@ public class RegistrationPage extends AppCompatActivity {
         });
     }
 
+    // TextWatcher to enable/disable the button based on the conditions
+    private final TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // Check conditions (e.g., email and password not empty)
+            boolean conditionsFulfilled = !editTextEmail.getText().toString().isEmpty()
+                    && !editTextPhoneNum.getText().toString().isEmpty()
+                    && !editTextPW.getText().toString().isEmpty();
+
+            // Enable or disable the button based on conditions
+            signUpBtn.setEnabled(conditionsFulfilled);
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+    };
+
     public void signUp(View v) {
         Log.w(TAG, "signup button worked");
+        Toast.makeText(RegistrationPage.this, "A verification code is sent!\nPlease check you mail box.",
+                Toast.LENGTH_SHORT).show();
         TextView phoneNum = ((TextView) findViewById(R.id.signInUserPhoneNum));
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(mAuth)
@@ -135,6 +177,7 @@ public class RegistrationPage extends AppCompatActivity {
                                     Toast.LENGTH_LONG).show();
 
                             //TODO: go to home
+                            startActivity(new Intent(RegistrationPage.this, MainActivity.class));
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
