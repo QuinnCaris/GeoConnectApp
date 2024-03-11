@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1019693292286",
-    "project_id": "geoconnect-a763c",
-    "storage_bucket": "geoconnect-a763c.appspot.com"
+    "project_number": "443762609230",
+    "project_id": "geoconnect2-2dbbe",
+    "storage_bucket": "geoconnect2-2dbbe.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1019693292286:android:41f0851a837ee6521a23af",
+        "mobilesdk_app_id": "1:443762609230:android:6f4b8d82b5f8a49323871f",
         "android_client_info": {
           "package_name": "com.example.geoconnectapp"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBTljjAKbY2Pka2hFDvPGK0XLwZ1P3W35M"
+          "current_key": "AIzaSyCqJ_CkglG543qPmEh2-ROKWF7op0K-iKg"
         }
       ],
       "services": {
