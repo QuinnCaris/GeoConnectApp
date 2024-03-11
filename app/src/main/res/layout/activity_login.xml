@@ -71,6 +71,7 @@
         android:drawablePadding="8dp"
         android:fontFamily="sans-serif"
         android:hint="@string/email"
+        android:inputType="text|textEmailAddress"
         android:paddingStart="8dp"
         android:paddingEnd="4dp"
         android:textColor="@color/black"
