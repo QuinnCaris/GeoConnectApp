@@ -1,8 +1,11 @@
 package com.example.geoconnectapp;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 
 import com.example.geoconnectapp.ui.fragments.FriendsFragment;
@@ -11,6 +14,7 @@ import com.example.geoconnectapp.ui.fragments.LocationFragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -18,10 +22,14 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.geoconnectapp.databinding.ActivityMainBinding;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -30,10 +38,14 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    private double userLat;
+    private double userLong;
+    private FusedLocationProviderClient fusedLocationProviderClient;
     private Map<String, Object> trackedGeocacheLocation;
     private final String TAG = "MainActivity";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -46,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new HomeFragment());
+
+        fusedLocationProviderClient =LocationServices.getFusedLocationProviderClient(this);
 
         binding.bottomNav.setOnItemSelectedListener(item -> {
 
@@ -126,6 +140,25 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "Current data: null");
                 }
             }
+        });
+    }
+
+    public void getLocation(View v) {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Get users permission
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION},
+                    1000);
+        }
+
+        fusedLocationProviderClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
+                .addOnSuccessListener(location -> {
+                    if (location != null) {
+                        userLat = location.getLatitude();
+                        userLong = location.getLongitude();
+                        Toast.makeText(this, String.format(Locale.US, "%s %s", userLat, userLong), Toast.LENGTH_SHORT).show();
+                    }
         });
     }
 }

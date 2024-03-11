@@ -175,7 +175,6 @@ public class RegistrationPage extends AppCompatActivity {
                             Toast.makeText(RegistrationPage.this, "User made an account!",
                                     Toast.LENGTH_LONG).show();
 
-                            //TODO: go to home
                             startActivity(new Intent(RegistrationPage.this, MainActivity.class));
                         } else {
                             // Sign in failed, display a message and update the UI
