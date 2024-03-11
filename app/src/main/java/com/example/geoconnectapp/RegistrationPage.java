@@ -145,7 +145,7 @@ public class RegistrationPage extends AppCompatActivity {
 
     public void signUp(View v) {
         Log.w(TAG, "signup button worked");
-        Toast.makeText(RegistrationPage.this, "A verification code is sent!\nPlease check you mail box.",
+        Toast.makeText(RegistrationPage.this, "A verification code is sent!\nPlease check your sms inbox.",
                 Toast.LENGTH_SHORT).show();
         TextView phoneNum = ((TextView) findViewById(R.id.signInUserPhoneNum));
         PhoneAuthOptions options =
@@ -172,8 +172,7 @@ public class RegistrationPage extends AppCompatActivity {
 
                             linkToEmail();
 
-                            // Update UI
-                            Toast.makeText(RegistrationPage.this, "USER MADE AN ACCOUNT WITH PHONE NUMBER LETS GOOO",
+                            Toast.makeText(RegistrationPage.this, "User made an account!",
                                     Toast.LENGTH_LONG).show();
 
                             //TODO: go to home

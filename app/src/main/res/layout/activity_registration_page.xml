@@ -133,6 +133,7 @@
         android:drawablePadding="8dp"
         android:fontFamily="sans-serif"
         android:hint="@string/at_least_8_character"
+        android:inputType="text|textPassword"
         android:paddingStart="8dp"
         android:paddingEnd="4dp"
         android:textColor="@color/black"
