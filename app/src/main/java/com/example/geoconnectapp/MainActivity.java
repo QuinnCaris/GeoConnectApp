@@ -1,27 +1,28 @@
 package com.example.geoconnectapp;
 
-import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-
-import com.example.geoconnectapp.ui.fragments.FriendsFragment;
-import com.example.geoconnectapp.ui.fragments.HomeFragment;
-import com.example.geoconnectapp.ui.fragments.LocationFragment;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.geoconnectapp.databinding.ActivityMainBinding;
+import com.example.geoconnectapp.ui.fragments.FriendsFragment;
+import com.example.geoconnectapp.ui.fragments.HomeFragment;
+import com.example.geoconnectapp.ui.fragments.LocationFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
@@ -29,7 +30,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -41,8 +41,15 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
+    private SensorManager sensorManager;
+
+    private static final float[] accelerometerReading = new float[3];
+    private static final float[] magnetometerReading = new float[3];
+
+    private static final float[] rotationMatrix = new float[9];
+    private static final float[] orientationAngles = new float[3];
     private double userLat;
     private double userLong;
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -59,7 +66,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         replaceFragment(new HomeFragment());
 
-        fusedLocationProviderClient =LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
         binding.bottomNav.setOnItemSelectedListener(item -> {
 
@@ -160,5 +169,72 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(this, String.format(Locale.US, "%s %s", userLat, userLong), Toast.LENGTH_SHORT).show();
                     }
         });
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Do something here if sensor accuracy changes.
+        // You must implement this callback in your code.
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Get updates from the accelerometer and magnetometer at a constant rate.
+        // To make batch operations more efficient and reduce power consumption,
+        // provide support for delaying updates to the application.
+        //
+        // In this example, the sensor reporting delay is small enough such that
+        // the application receives an update before the system checks the sensor
+        // readings again.
+        Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        if (accelerometer != null) {
+            sensorManager.registerListener(this, accelerometer,
+                    SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
+        }
+        Sensor magneticField = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        if (magneticField != null) {
+            sensorManager.registerListener(this, magneticField,
+                    SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Don't receive any more updates from either sensor.
+        sensorManager.unregisterListener(this);
+    }
+
+    // Get readings from accelerometer and magnetometer. To simplify calculations,
+    // consider storing these readings as unit vectors.
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            System.arraycopy(event.values, 0, accelerometerReading,
+                    0, accelerometerReading.length);
+        } else if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+            System.arraycopy(event.values, 0, magnetometerReading,
+                    0, magnetometerReading.length);
+        }
+    }
+
+    // Compute the three orientation angles based on the most recent readings from
+    // the device's accelerometer and magnetometer.
+    public static void updateOrientationAngles(View v) {
+        // Update rotation matrix, which is needed to update orientation angles.
+        SensorManager.getRotationMatrix(rotationMatrix, null,
+                accelerometerReading, magnetometerReading);
+
+        // "rotationMatrix" now has up-to-date information.
+
+        SensorManager.getOrientation(rotationMatrix, orientationAngles);
+
+        double actualAngle = (orientationAngles[0] / Math.PI) * 180;
+
+        // "orientationAngles" now has up-to-date information.
+        Toast.makeText(v.getContext(), String.valueOf(actualAngle), Toast.LENGTH_LONG).show();
     }
 }
