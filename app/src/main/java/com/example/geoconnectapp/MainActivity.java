@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
     private SensorManager sensorManager;
     private SensorHandler sensorHandler;
-    private double userLat;
-    private double userLong;
+    private double userLat = Double.NaN;
+    private double userLong = Double.NaN;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private Tracking trackingHandler;
     private final String TAG = "MainActivity";
@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
         sensorHandler = new SensorHandler();
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+        getLocation(new View(this));
 
         binding.bottomNav.setOnItemSelectedListener(item -> {
 
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         Map<String, Object> geocache = new HashMap<>();
 
         // Replace with location of geocache
-        geocache.put("location", new GeoPoint(51.4532659753123, 5.487975162955796));
+        geocache.put("location", new GeoPoint(50.82119451701268, 6.009762502463593));
         geocache.put("username", "Quinnca77");
 
         // Add a new document with a generated ID
@@ -163,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                     if (location != null) {
                         userLat = location.getLatitude();
                         userLong = location.getLongitude();
-                        Toast.makeText(this, String.format(Locale.US, "%s %s", userLat, userLong), Toast.LENGTH_SHORT).show();
+                        Log.d("Location", "Location got! It's " + userLat + " " + userLong);
                     }
         });
     }
@@ -199,8 +201,35 @@ public class MainActivity extends AppCompatActivity {
 
     // Displays angle on screen. 0 is north, 90 is east, 180 is south, 270 is west.
     public double calculateAngleDiff(View v) {
-        double angleDiff = trackingHandler.calculateAngleDiff(userLat, userLong);
-        Toast.makeText(this, String.valueOf(angleDiff), Toast.LENGTH_SHORT).show();
-        return angleDiff;
+        //REFACTOR THIS QUINN
+        if (!checkRobustness()) {
+            return 0;
+        } else {
+            double angleDiff = trackingHandler.calculateAngleDiff(userLat, userLong);
+            Toast.makeText(this, String.valueOf(angleDiff), Toast.LENGTH_SHORT).show();
+            return angleDiff;
+        }
+    }
+
+    public double calculateDistance(View v) {
+        if (!checkRobustness()) {
+            return 0;
+        } else {
+            double distance = trackingHandler.calculateDistance(userLat, userLong);
+            Toast.makeText(this, String.valueOf(distance), Toast.LENGTH_SHORT).show();
+            return distance;
+        }
+    }
+
+    private boolean checkRobustness() {
+        if (Double.isNaN(userLat)) {
+            Toast.makeText(this, "Still fetching location!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if (trackingHandler == null) {
+            Toast.makeText(this, "No geocache is being tracked!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 }
