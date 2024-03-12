@@ -23,13 +23,25 @@
             android:id="@+id/orientationButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="196dp"
+            android:layout_marginTop="144dp"
             android:onClick="updateOrientationAngles"
-            android:text="get angle"
+            android:text="get angle user"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:onClick="calculateAngleDiff"
+            android:text="get angle diff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/orientationButton" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

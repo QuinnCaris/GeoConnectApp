@@ -1,4 +1,4 @@
-package com.example.geoconnectapp;
+package com.example.geoconnectapp.logic;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -6,10 +6,10 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
 public class SensorHandler implements SensorEventListener {
-    private static final float[] accelerometerReading = new float[3];
-    private static final float[] magnetometerReading = new float[3];
-    private static final float[] rotationMatrix = new float[9];
-    private static final float[] orientationAngles = new float[3];
+    private static float[] accelerometerReading = new float[3];
+    private static float[] magnetometerReading = new float[3];
+    private static float[] rotationMatrix = new float[9];
+    private static float[] orientationAngles = new float[3];
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
@@ -32,9 +32,12 @@ public class SensorHandler implements SensorEventListener {
                 accelerometerReading, magnetometerReading);
 
         SensorManager.getOrientation(rotationMatrix, orientationAngles);
-        double actualAngle = (orientationAngles[0] / Math.PI) * 180;
         // You can handle or broadcast the orientation angle as needed.
-        return actualAngle;
+        double angle = Math.toDegrees(orientationAngles[0]);
+        if (angle < 0) {
+            angle = 360 + angle;
+        }
+        return angle;
     }
 }
 

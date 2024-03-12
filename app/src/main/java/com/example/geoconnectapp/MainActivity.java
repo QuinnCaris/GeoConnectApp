@@ -3,8 +3,6 @@ package com.example.geoconnectapp;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +18,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.geoconnectapp.databinding.ActivityMainBinding;
+import com.example.geoconnectapp.logic.SensorHandler;
+import com.example.geoconnectapp.logic.Tracking;
 import com.example.geoconnectapp.ui.fragments.FriendsFragment;
 import com.example.geoconnectapp.ui.fragments.HomeFragment;
 import com.example.geoconnectapp.ui.fragments.LocationFragment;
@@ -45,16 +45,10 @@ public class MainActivity extends AppCompatActivity {
 
     private SensorManager sensorManager;
     private SensorHandler sensorHandler;
-
-    private static final float[] accelerometerReading = new float[3];
-    private static final float[] magnetometerReading = new float[3];
-
-    private static final float[] rotationMatrix = new float[9];
-    private static final float[] orientationAngles = new float[3];
     private double userLat;
     private double userLong;
     private FusedLocationProviderClient fusedLocationProviderClient;
-    private Map<String, Object> trackedGeocacheLocation;
+    private Tracking trackingHandler;
     private final String TAG = "MainActivity";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -95,14 +89,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateGeocacheLocation(View v) {
         // Create a new user with a first and last name
-        Map<String, Object> location = new HashMap<>();
+        Map<String, Object> geocache = new HashMap<>();
 
         // Replace with location of geocache
-        location.put("location", new GeoPoint(51.44284710145637, 5.476265659157028));
+        geocache.put("location", new GeoPoint(51.4532659753123, 5.487975162955796));
+        geocache.put("username", "Quinnca77");
 
         // Add a new document with a generated ID
-        db.collection("locations").document("0")
-                .set(location)
+        db.collection("geocaches").document("0")
+                .set(geocache)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -118,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getGeocacheLocationAndTrack(View v) {
-        DocumentReference docRef = db.collection("locations").document("0");
+        DocumentReference docRef = db.collection("geocaches").document("0");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -126,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        trackedGeocacheLocation = document.getData();
+                        trackingHandler = new Tracking(document.getData());
                     } else {
                         Log.d(TAG, "No such document");
                     }
@@ -146,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (snapshot != null && snapshot.exists()) {
                     Log.d(TAG, "Current data: " + snapshot.getData());
-                    trackedGeocacheLocation = snapshot.getData();
+                    trackingHandler = new Tracking(snapshot.getData());
                 } else {
                     Log.d(TAG, "Current data: null");
                 }
@@ -196,8 +191,16 @@ public class MainActivity extends AppCompatActivity {
 
     // Compute the three orientation angles based on the most recent readings from
     // the device's accelerometer and magnetometer.
-    public void updateOrientationAngles(View v) {
+    public double updateOrientationAngles(View v) {
         double actualAngle = SensorHandler.updateOrientationAngles();
         Toast.makeText(this, String.valueOf(actualAngle), Toast.LENGTH_SHORT).show();
+        return actualAngle;
+    }
+
+    // Displays angle on screen. 0 is north, 90 is east, 180 is south, 270 is west.
+    public double calculateAngleDiff(View v) {
+        double angleDiff = trackingHandler.calculateAngleDiff(userLat, userLong);
+        Toast.makeText(this, String.valueOf(angleDiff), Toast.LENGTH_SHORT).show();
+        return angleDiff;
     }
 }
