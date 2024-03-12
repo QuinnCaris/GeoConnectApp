@@ -41,9 +41,10 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity {
 
     private SensorManager sensorManager;
+    private SensorHandler sensorHandler;
 
     private static final float[] accelerometerReading = new float[3];
     private static final float[] magnetometerReading = new float[3];
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
+        sensorHandler = new SensorHandler();
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
         binding.bottomNav.setOnItemSelectedListener(item -> {
@@ -172,30 +174,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // Do something here if sensor accuracy changes.
-        // You must implement this callback in your code.
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
-
-        // Get updates from the accelerometer and magnetometer at a constant rate.
-        // To make batch operations more efficient and reduce power consumption,
-        // provide support for delaying updates to the application.
-        //
-        // In this example, the sensor reporting delay is small enough such that
-        // the application receives an update before the system checks the sensor
-        // readings again.
         Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if (accelerometer != null) {
-            sensorManager.registerListener(this, accelerometer,
+            sensorManager.registerListener(sensorHandler, accelerometer,
                     SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
         }
         Sensor magneticField = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         if (magneticField != null) {
-            sensorManager.registerListener(this, magneticField,
+            sensorManager.registerListener(sensorHandler, magneticField,
                     SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
         }
     }
@@ -203,38 +191,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onPause() {
         super.onPause();
-
-        // Don't receive any more updates from either sensor.
-        sensorManager.unregisterListener(this);
-    }
-
-    // Get readings from accelerometer and magnetometer. To simplify calculations,
-    // consider storing these readings as unit vectors.
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            System.arraycopy(event.values, 0, accelerometerReading,
-                    0, accelerometerReading.length);
-        } else if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
-            System.arraycopy(event.values, 0, magnetometerReading,
-                    0, magnetometerReading.length);
-        }
+        sensorManager.unregisterListener(sensorHandler);
     }
 
     // Compute the three orientation angles based on the most recent readings from
     // the device's accelerometer and magnetometer.
-    public static void updateOrientationAngles(View v) {
-        // Update rotation matrix, which is needed to update orientation angles.
-        SensorManager.getRotationMatrix(rotationMatrix, null,
-                accelerometerReading, magnetometerReading);
-
-        // "rotationMatrix" now has up-to-date information.
-
-        SensorManager.getOrientation(rotationMatrix, orientationAngles);
-
-        double actualAngle = (orientationAngles[0] / Math.PI) * 180;
-
-        // "orientationAngles" now has up-to-date information.
-        Toast.makeText(v.getContext(), String.valueOf(actualAngle), Toast.LENGTH_LONG).show();
+    public void updateOrientationAngles(View v) {
+        double actualAngle = SensorHandler.updateOrientationAngles();
+        Toast.makeText(this, String.valueOf(actualAngle), Toast.LENGTH_SHORT).show();
     }
 }
