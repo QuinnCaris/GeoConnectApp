@@ -38,7 +38,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -231,5 +230,17 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    public Tracking getTrackingHandler() {
+        return trackingHandler;
+    }
+
+    public double getUserLat() {
+        return userLat;
+    }
+
+    public double getUserLong() {
+        return userLong;
     }
 }

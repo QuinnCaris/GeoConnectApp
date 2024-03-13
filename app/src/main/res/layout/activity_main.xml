@@ -25,7 +25,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/activitiy_home_bottom_nav"
+        app:menu="@menu/activity_home_bottom_nav"
         app:itemIconTint="@drawable/botton_nav_selector"
         app:labelVisibilityMode="unlabeled" />
 

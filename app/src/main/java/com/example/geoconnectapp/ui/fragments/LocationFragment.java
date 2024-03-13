@@ -1,14 +1,24 @@
 package com.example.geoconnectapp.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.geoconnectapp.MainActivity;
 import com.example.geoconnectapp.R;
+import com.example.geoconnectapp.logic.Tracking;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +35,8 @@ public class LocationFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Handler handler = new Handler();
+    private ImageView arrowView;
 
     public LocationFragment() {
         // Required empty public constructor
@@ -38,7 +50,6 @@ public class LocationFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment LocationFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static LocationFragment newInstance(String param1, String param2) {
         LocationFragment fragment = new LocationFragment();
         Bundle args = new Bundle();
@@ -62,5 +73,42 @@ public class LocationFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_location, container, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        startUpdatingArrow();
+    }
+
+    private void startUpdatingArrow() {
+        MainActivity parentActivity = ((MainActivity)getActivity());
+        Tracking trackingHandler = parentActivity.getTrackingHandler();
+        double userLat = parentActivity.getUserLat();
+        double userLong = parentActivity.getUserLong();
+        Runnable updateArrowRunnable = new Runnable() {
+            public void run() {
+                // Update arrow rotation here
+                arrowView.setRotation((float) trackingHandler.calculateAngleDiff(userLat, userLong) - 90);
+                Log.d("Arrow runnable", "Updated arrow!");
+                handler.postDelayed(this, 1000);
+            }
+        };
+        handler.post(updateArrowRunnable);
+    }
+
+    private void stopUpdatingArrow() {
+        handler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stopUpdatingArrow();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        this.arrowView = (ImageView) view.findViewById(R.id.arrow);
     }
 }
