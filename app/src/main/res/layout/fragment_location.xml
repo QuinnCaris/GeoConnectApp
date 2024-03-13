@@ -8,16 +8,22 @@
     tools:context=".ui.fragments.LocationFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/location"
-        android:textSize="26sp"
-        android:layout_gravity="center" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/distanceView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/distance"
+            android:textSize="26sp"
+            app:layout_constraintBottom_toTopOf="@+id/arrow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/distanceButton" />
 
         <Button
             android:id="@+id/orientationButton"

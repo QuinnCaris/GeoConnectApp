@@ -1,10 +1,9 @@
 package com.example.geoconnectapp.ui.fragments;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -12,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,6 +35,7 @@ public class LocationFragment extends Fragment {
     private String mParam2;
     private Handler handler = new Handler();
     private ImageView arrowView;
+    private TextView distanceView;
 
     public LocationFragment() {
         // Required empty public constructor
@@ -78,37 +77,51 @@ public class LocationFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        startUpdatingArrow();
+        startUpdatingUI();
     }
 
-    private void startUpdatingArrow() {
+    private void startUpdatingUI() {
         MainActivity parentActivity = ((MainActivity)getActivity());
         Tracking trackingHandler = parentActivity.getTrackingHandler();
-        double userLat = parentActivity.getUserLat();
-        double userLong = parentActivity.getUserLong();
+        final double[] userLat = {parentActivity.getUserLat()};
+        final double[] userLong = {parentActivity.getUserLong()};
         Runnable updateArrowRunnable = new Runnable() {
             public void run() {
-                // Update arrow rotation here
-                arrowView.setRotation((float) trackingHandler.calculateAngleDiff(userLat, userLong) - 90);
+                userLat[0] = parentActivity.getUserLat();
+                userLong[0] = parentActivity.getUserLong();
+                arrowView.setRotation((float) trackingHandler.calculateAngleDiff(userLat[0], userLong[0]) - 90);
                 Log.d("Arrow runnable", "Updated arrow!");
                 handler.postDelayed(this, 1000);
             }
         };
+        Runnable updateDistanceRunnable = new Runnable() {
+            @SuppressLint("DefaultLocale")
+            public void run() {
+                parentActivity.getLocation(new View(parentActivity));
+                userLat[0] = parentActivity.getUserLat();
+                userLong[0] = parentActivity.getUserLong();
+                distanceView.setText(String.format("%.2f m", trackingHandler.calculateDistance(userLat[0], userLong[0])));
+                Log.d("Distance runnable", "Updated distance!");
+                handler.postDelayed(this, 1000);
+            }
+        };
         handler.post(updateArrowRunnable);
+        handler.post(updateDistanceRunnable);
     }
 
-    private void stopUpdatingArrow() {
+    private void stopUpdatingUI() {
         handler.removeCallbacksAndMessages(null);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        stopUpdatingArrow();
+        stopUpdatingUI();
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         this.arrowView = (ImageView) view.findViewById(R.id.arrow);
+        this.distanceView = (TextView) view.findViewById(R.id.distanceView);
     }
 }
