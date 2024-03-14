@@ -2,10 +2,6 @@ package com.example.geoconnectapp.ui.fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.geoconnectapp.MainActivity;
 import com.example.geoconnectapp.R;
@@ -64,6 +63,9 @@ public class LocationFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+        if (((MainActivity)getActivity()).getTrackingHandler() == null) {
+            ((MainActivity)getActivity()).replaceFragment(new HomeFragment());
         }
     }
 
