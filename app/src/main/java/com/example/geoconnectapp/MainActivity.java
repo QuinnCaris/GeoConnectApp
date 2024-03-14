@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void replaceFragment(Fragment fragment) {
+    public void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
@@ -200,7 +200,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Displays angle on screen. 0 is north, 90 is east, 180 is south, 270 is west.
     public double calculateAngleDiff(View v) {
-        //REFACTOR THIS QUINN
         if (!checkRobustness()) {
             return 0;
         } else {

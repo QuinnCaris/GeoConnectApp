@@ -181,8 +181,9 @@ public class RegistrationPage extends AppCompatActivity {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
-                                Toast.makeText(RegistrationPage.this, "Verification code was invalid",
-                                        Toast.LENGTH_LONG).show();
+                                // CAUTION: Somehow this also sometimes gets displayed when everything worked
+                                //Toast.makeText(RegistrationPage.this, "Verification code was invalid",
+                                //        Toast.LENGTH_LONG).show();
                             }
                         }
                     }
