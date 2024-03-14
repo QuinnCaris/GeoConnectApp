@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="340dp"
-        android:fontFamily="@font/sora_bold"
+        android:fontFamily="@font/sora_semibold"
         android:gravity="center"
         android:text="@string/welcoming"
         android:textColor="@color/pale_white"

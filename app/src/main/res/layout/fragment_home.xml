@@ -4,56 +4,101 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/nav_logo_color"
+    android:background="@color/background_white"
     tools:context=".ui.fragments.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/home"
-        android:textSize="26sp"
-        android:layout_gravity="center"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="updateGeocacheLocation"
-            android:text="Update Location Geocache"
-            app:layout_constraintBottom_toTopOf="@+id/button4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="400dp"
-            android:onClick="getLocation"
-            android:text="Get location"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button4" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="getGeocacheLocationAndTrack"
-            android:text="get location geocache"
-            app:layout_constraintBottom_toTopOf="@+id/button3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button2" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/gradient_background_black">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingTop="30dp"
+                        android:paddingEnd="16dp">
+
+                        <ImageView
+                            android:id="@+id/profilePic"
+                            android:layout_width="85dp"
+                            android:layout_height="85dp"
+                            android:src="@drawable/profile_pic1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/Location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="216dp"
+                            android:fontFamily="@font/sora_light"
+                            android:text="Location"
+                            android:textColor="#B7B7B7"
+                            android:textSize="14dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/profilePic"
+                            app:layout_constraintEnd_toStartOf="@+id/profilePic"
+                            app:layout_constraintTop_toTopOf="@+id/profilePic"
+                            app:layout_constraintVertical_bias="0.388" />
+
+                        <TextView
+                            android:id="@+id/cityName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sora"
+                            android:text="Eindhoven, Netherlands"
+                            android:textColor="@color/white"
+                            android:textSize="16dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/profilePic"
+                            app:layout_constraintStart_toStartOf="@+id/Location"
+                            app:layout_constraintTop_toBottomOf="@+id/Location"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <EditText
+                            android:id="@+id/searchGeocache"
+                            android:layout_width="350dp"
+                            android:layout_height="54dp"
+                            android:background="@drawable/search_background"
+                            android:drawableStart="@drawable/search"
+                            android:drawableEnd="@drawable/setting"
+                            android:drawablePadding="10dp"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="4dp"
+                            android:paddingVertical="4dp"
+                            android:ems="10"
+                            android:fontFamily="@font/sora"
+                            android:hint="Search geocaches"
+                            android:inputType="text|textPersonName"
+                            android:textColor="@color/white"
+                            android:textColorHint="#989898"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/cityName"
+                            app:layout_constraintTop_toBottomOf="@+id/cityName"
+                            app:layout_constraintVertical_bias="0.495" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
