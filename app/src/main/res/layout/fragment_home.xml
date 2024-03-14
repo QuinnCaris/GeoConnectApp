@@ -25,7 +25,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="220dp"
                     android:orientation="horizontal"
                     android:background="@drawable/gradient_background_black">
 
@@ -43,59 +43,85 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/Location"
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/constraintLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="216dp"
-                            android:fontFamily="@font/sora_light"
-                            android:text="Location"
-                            android:textColor="#B7B7B7"
-                            android:textSize="14dp"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="4dp"
                             app:layout_constraintBottom_toBottomOf="@+id/profilePic"
                             app:layout_constraintEnd_toStartOf="@+id/profilePic"
+                            app:layout_constraintHorizontal_bias="0.507"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/profilePic"
-                            app:layout_constraintVertical_bias="0.388" />
+                            app:layout_constraintVertical_bias="0.6">
 
-                        <TextView
-                            android:id="@+id/cityName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/sora"
-                            android:text="Eindhoven, Netherlands"
-                            android:textColor="@color/white"
-                            android:textSize="16dp"
-                            app:layout_constraintBottom_toBottomOf="@+id/profilePic"
-                            app:layout_constraintStart_toStartOf="@+id/Location"
-                            app:layout_constraintTop_toBottomOf="@+id/Location"
-                            app:layout_constraintVertical_bias="0.0" />
+                            <TextView
+                                android:id="@+id/Location"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/sora"
+                                android:text="Location"
+                                android:textColor="#B7B7B7"
+                                android:textSize="14dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:ignore="TextSizeCheck" />
+
+                            <TextView
+                                android:id="@+id/cityName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableEnd="@drawable/arrowdown2"
+                                android:drawablePadding="4dp"
+                                android:fontFamily="@font/sora_semibold"
+                                android:text="Eindhoven, Netherlands"
+                                android:textColor="@color/white"
+                                android:textSize="16dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/Location" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <EditText
                             android:id="@+id/searchGeocache"
                             android:layout_width="350dp"
                             android:layout_height="54dp"
+                            android:layout_marginEnd="12dp"
                             android:background="@drawable/search_background"
-                            android:drawableStart="@drawable/search"
+                            android:drawableStart="@drawable/search_normal"
                             android:drawableEnd="@drawable/setting"
                             android:drawablePadding="10dp"
-                            android:paddingStart="16dp"
-                            android:paddingEnd="4dp"
-                            android:paddingVertical="4dp"
                             android:ems="10"
                             android:fontFamily="@font/sora"
-                            android:hint="Search geocaches"
+                            android:hint="Search friends"
                             android:inputType="text|textPersonName"
+                            android:paddingVertical="4dp"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="4dp"
                             android:textColor="@color/white"
                             android:textColorHint="#989898"
                             android:textSize="16sp"
                             app:layout_constraintBottom_toBottomOf="parent"
+
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="@+id/cityName"
-                            app:layout_constraintTop_toBottomOf="@+id/cityName"
-                            app:layout_constraintVertical_bias="0.495" />
+                            app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+                            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                            app:layout_constraintVertical_bias="0.462" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
