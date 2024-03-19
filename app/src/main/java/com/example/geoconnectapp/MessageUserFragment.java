@@ -27,7 +27,6 @@ public class MessageUserFragment extends Fragment {
     private String message;
 
 
-    //TODO: change text in constructor
     public MessageUserFragment(String message) {
         this.message = message;
     }
