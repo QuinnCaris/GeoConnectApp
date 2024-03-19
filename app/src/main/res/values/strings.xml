@@ -26,4 +26,6 @@
     <string name="friends">Friends</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="distance">Distance</string>
+    <string name="interest">Interested in sports</string>
+    <string name="David">David</string>
 </resources>
