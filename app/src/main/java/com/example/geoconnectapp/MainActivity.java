@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
         getLocation(new View(this));
 
-
         binding.bottomNav.setOnItemSelectedListener(item -> {
 
             if (item.getItemId() == R.id.bottom_home) {

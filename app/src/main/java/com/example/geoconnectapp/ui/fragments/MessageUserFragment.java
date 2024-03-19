@@ -1,4 +1,4 @@
-package com.example.geoconnectapp;
+package com.example.geoconnectapp.ui.fragments;
 
 import android.os.Bundle;
 
@@ -11,12 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.geoconnectapp.R;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MessageFriendFragment#newInstance} factory method to
+ * Use the {@link MessageUserFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MessageFriendFragment extends Fragment {
+public class MessageUserFragment extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -24,10 +26,10 @@ public class MessageFriendFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
-
     private String message;
 
-    public MessageFriendFragment(String message) {
+
+    public MessageUserFragment(String message) {
         this.message = message;
     }
 
@@ -39,8 +41,8 @@ public class MessageFriendFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment MessageFragment.
      */
-    public static MessageFriendFragment newInstance(String param1, String param2) {
-        MessageFriendFragment fragment = new MessageFriendFragment(param1);
+    public static MessageUserFragment newInstance(String param1, String param2) {
+        MessageUserFragment fragment = new MessageUserFragment(param1);
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,7 +63,7 @@ public class MessageFriendFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_message_friend, container, false);
+        return inflater.inflate(R.layout.fragment_message_user, container, false);
     }
 
     @Override

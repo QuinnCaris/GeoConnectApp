@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.geoconnectapp.MainActivity;
 import com.example.geoconnectapp.R;
@@ -74,6 +77,7 @@ public class LocationFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_location, container, false);
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
@@ -121,7 +125,7 @@ public class LocationFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        this.arrowView = (ImageView) view.findViewById(R.id.arrow);
-        this.distanceView = (TextView) view.findViewById(R.id.distanceView);
+        this.arrowView = view.findViewById(R.id.arrow);
+        this.distanceView = view.findViewById(R.id.distance);
     }
 }

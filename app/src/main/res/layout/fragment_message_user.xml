@@ -8,7 +8,7 @@
     android:layout_gravity="end"
     android:background="@drawable/shape_outgoing_bubble"
     android:paddingHorizontal="50sp"
-    tools:context=".MessageUserFragment">
+    tools:context=".ui.fragments.MessageUserFragment">
 
     <TextView
         android:id="@+id/textView6"
