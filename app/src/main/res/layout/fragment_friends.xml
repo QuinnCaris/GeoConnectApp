@@ -69,10 +69,8 @@
                             android:paddingVertical="4dp"
                             app:layout_constraintBottom_toBottomOf="@+id/profilePic2"
                             app:layout_constraintEnd_toStartOf="@+id/profilePic2"
-                            app:layout_constraintHorizontal_bias="0.507"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/profilePic2"
-                            app:layout_constraintVertical_bias="0.6">
+                            app:layout_constraintTop_toTopOf="@+id/profilePic2">
 
                             <TextView
                                 android:id="@+id/Location"
@@ -103,9 +101,10 @@
 
                         <EditText
                             android:id="@+id/searchGeocache"
-                            android:layout_width="350dp"
+                            android:layout_width="match_parent"
                             android:layout_height="54dp"
-                            android:layout_marginEnd="12dp"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginEnd="40dp"
                             android:background="@drawable/search_friend_background"
                             android:drawableStart="@drawable/search_normal"
                             android:drawableEnd="@drawable/setting"
@@ -123,9 +122,10 @@
                             app:layout_constraintBottom_toBottomOf="parent"
 
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="@+id/constraintLayout"
                             app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-                            app:layout_constraintVertical_bias="0.462" />
+                            app:layout_constraintVertical_bias="0.479" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
