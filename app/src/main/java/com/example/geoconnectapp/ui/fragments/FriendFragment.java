@@ -1,4 +1,4 @@
-package com.example.geoconnectapp;
+package com.example.geoconnectapp.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.example.geoconnectapp.MessageActivity;
+import com.example.geoconnectapp.R;
 
 /**
  * A simple {@link Fragment} subclass.

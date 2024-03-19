@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="115dp"
     android:background="@drawable/border"
-    tools:context=".FriendFragment">
+    tools:context=".ui.fragments.FriendFragment">
 
         <TextView
             android:id="@+id/textView4"
