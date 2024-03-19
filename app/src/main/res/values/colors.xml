@@ -16,4 +16,5 @@
     <color name="nav_logo_color">#C67C4E</color>
     <color name="background_white">#F9F9F9</color>
     <color name="dark_grey">#8D8D8D</color>
+    <color name="grey">#CAC4C3</color>
 </resources>

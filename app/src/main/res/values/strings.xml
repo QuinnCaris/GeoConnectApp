@@ -28,4 +28,5 @@
     <string name="distance">Distance</string>
     <string name="interest">Interested in sports</string>
     <string name="David">David</string>
+    <string name="loading">Loading...</string>
 </resources>

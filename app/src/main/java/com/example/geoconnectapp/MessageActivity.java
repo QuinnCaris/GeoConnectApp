@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -30,6 +31,7 @@ public class MessageActivity extends AppCompatActivity {
     FirebaseFirestore db;
     private LinearLayout linearLayoutMessages;
     private EditText editTextMessage;
+    private TextView loadingText;
 
     // TODO: Add loading text
     @Override
@@ -40,10 +42,13 @@ public class MessageActivity extends AppCompatActivity {
         this.db = FirebaseFirestore.getInstance();
 
         Consumer<List<String>> callback = strings -> {
+            this.loadingText.setVisibility(View.INVISIBLE);
             for (String message : strings) {
                 addMessageFriendToLayout(message);
             }
         };
+
+        this.loadingText = findViewById(R.id.loadingText);
 
         db.collection("messages")
                 .get()

@@ -6,7 +6,7 @@
     android:layout_width="wrap_content"
     android:layout_height="50sp"
     android:layout_gravity="end"
-    android:background="@drawable/border"
+    android:background="@drawable/shape_outgoing_bubble"
     android:paddingHorizontal="50sp"
     tools:context=".MessageUserFragment">
 
@@ -14,6 +14,7 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
         android:text="TextView"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
