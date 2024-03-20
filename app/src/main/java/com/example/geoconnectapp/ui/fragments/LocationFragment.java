@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -65,9 +66,6 @@ public class LocationFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        if (((MainActivity)getActivity()).getTrackingHandler() == null) {
-            ((MainActivity)getActivity()).replaceFragment(new HomeFragment());
-        }
     }
 
     @Override
@@ -81,7 +79,11 @@ public class LocationFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        startUpdatingUI();
+        if (((MainActivity)getActivity()).getTrackingHandler() != null) {
+            startUpdatingUI();
+        } else {
+            Toast.makeText(getContext(), "No Geocache is being tracked!", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void startUpdatingUI() {
