@@ -22,12 +22,15 @@
                 android:layout_height="145dp"
                 android:padding="3dp"
                 android:src="@drawable/profilepic2"/>
+
             <ImageView
+                android:id="@+id/searchButton"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="187dp"
                 android:layout_marginStart="106dp"
-                android:src="@drawable/searchbutton2"/>
+                android:layout_marginTop="187dp"
+                android:clickable="true"
+                android:src="@drawable/searchbutton2" />
 
             <TextView
                 android:layout_width="match_parent"

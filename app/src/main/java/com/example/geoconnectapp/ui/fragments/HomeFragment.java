@@ -9,8 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.example.geoconnectapp.MainActivity;
 import com.example.geoconnectapp.R;
+import com.example.geoconnectapp.logic.Tracking;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,11 +66,14 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-
+        ImageView searchButton = rootView.findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity parentActivity = ((MainActivity)getActivity());
+                parentActivity.getGeocacheLocationAndTrack(view);
+            }
+        });
         return rootView;
     }
-
-
-
-
 }

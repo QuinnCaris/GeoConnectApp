@@ -35,7 +35,6 @@ public class MessageActivity extends AppCompatActivity {
     private EditText editTextMessage;
     private TextView loadingText;
 
-    // TODO: Add loading text
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

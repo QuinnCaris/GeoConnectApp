@@ -38,6 +38,7 @@ public class LocationFragment extends Fragment {
     private ImageView arrowView;
     private TextView distanceView;
 
+    // TODO: Implement message button to go to messageactivity
     public LocationFragment() {
         // Required empty public constructor
     }
