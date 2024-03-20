@@ -35,13 +35,16 @@
         <activity
             android:name=".LoginActivity"
             android:exported="true"
-            android:label="Activity Login Page" />
+            android:label="Activity Login Page"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".RegistrationPage"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"/>
 
         <meta-data
             android:name="preloaded_fonts"

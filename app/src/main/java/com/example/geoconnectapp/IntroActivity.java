@@ -7,15 +7,18 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import com.example.geoconnectapp.databinding.ActivityIntroBinding;
+
 public class IntroActivity extends AppCompatActivity {
 
+    private ActivityIntroBinding binding;
     private AppCompatButton introBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_intro);
+        binding = ActivityIntroBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         introBtn = findViewById(R.id.getstartbtn);
 

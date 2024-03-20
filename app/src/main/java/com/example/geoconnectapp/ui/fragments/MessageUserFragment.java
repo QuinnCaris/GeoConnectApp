@@ -69,7 +69,7 @@ public class MessageUserFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView message = view.findViewById(R.id.textView6);
+        TextView message = view.findViewById(R.id.textViewUser);
         message.setText(this.message);
     }
 }
