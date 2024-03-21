@@ -67,6 +67,14 @@ public class MainActivity extends AppCompatActivity {
 
         getLocation(new View(this));
 
+        if (getIntent().getExtras() != null) {
+            if (getIntent().getExtras().get("location") != null) {
+                if ((boolean)getIntent().getExtras().get("location")) {
+                    getGeocacheLocationAndTrack();
+                }
+            }
+        }
+
         binding.bottomNav.setOnItemSelectedListener(item -> {
 
             if (item.getItemId() == R.id.bottom_home) {
@@ -113,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    public void getGeocacheLocationAndTrack(View v) {
+    public void getGeocacheLocationAndTrack() {
         DocumentReference docRef = db.collection("geocaches").document("0");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

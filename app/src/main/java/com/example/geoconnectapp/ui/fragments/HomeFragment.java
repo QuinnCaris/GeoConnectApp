@@ -71,29 +71,29 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        ImageView searchButton = rootView.findViewById(R.id.searchButton);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity parentActivity = ((MainActivity)getActivity());
-                parentActivity.getGeocacheLocationAndTrack(view);
-
-            }
-        });
+//        ImageView searchButton = rootView.findViewById(R.id.searchButton);
+//        searchButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                MainActivity parentActivity = ((MainActivity)getActivity());
+//                parentActivity.getGeocacheLocationAndTrack(view);
+//
+//            }
+//        });
         return rootView;
     }
 
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        ImageView searchButton = view.findViewById(R.id.searchButton);
-//
-//        searchButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), FriendsProfileActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ImageView searchButton = view.findViewById(R.id.searchButton);
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), FriendsProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
 }

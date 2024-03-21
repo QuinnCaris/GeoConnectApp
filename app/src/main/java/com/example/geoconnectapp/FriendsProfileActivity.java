@@ -1,5 +1,6 @@
 package com.example.geoconnectapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -34,8 +35,8 @@ public class FriendsProfileActivity extends AppCompatActivity {
 //        // The text view that displays the distance from yourself to the geocache
 //        distanceView = findViewById(R.id.profilePageDistance);
 //
-//        // Create an instance of MainActivity class
-//        parentActivity = new MainActivity();
+        // Create an instance of MainActivity class
+        parentActivity = new MainActivity();
 //
 //        // Calling getTrackingHandler() method from MainActivity
 //        Tracking trackingHandler = parentActivity.getTrackingHandler();
@@ -52,17 +53,9 @@ public class FriendsProfileActivity extends AppCompatActivity {
 
         // Navigate to Location fragment
         aloneBtn.setOnClickListener(v -> {
-            // Obtain an instance of FragmentManager
-            FragmentManager fragmentManager = getSupportFragmentManager();
-
-            // Begin a new FragmentTransaction
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-            LocationFragment locationFragment = new LocationFragment(); // Instantiate your fragment class
-            fragmentTransaction.replace(R.id.frame_layout, locationFragment);
-
-            // Commit the transaction
-            fragmentTransaction.commit();
+            Intent intent = new Intent(FriendsProfileActivity.this, MainActivity.class);
+            intent.putExtra("location", true);
+            startActivity(intent);
         });
 
     }
