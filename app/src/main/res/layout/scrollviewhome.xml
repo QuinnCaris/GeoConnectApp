@@ -11,11 +11,10 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="15dp">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="145dp"
-                android:padding="3dp"
-                android:src="@drawable/profilepic2"/>
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:src="@drawable/profilepic3" />
 
             <ImageView
                 android:id="@+id/searchButton"
@@ -43,7 +42,7 @@
                 android:fontFamily="@font/sora"
                 android:paddingStart="7dp"
                 android:paddingTop="163dp"
-                android:text="@string/interest"
+                android:text="Interested in Progra..."
                 android:textSize="12dp" />
             <TextView
                 android:layout_width="match_parent"
