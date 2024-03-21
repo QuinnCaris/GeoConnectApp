@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         sensorHandler = new SensorHandler();
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        getLocation(new View(this));
+        getLocation(null);
 
         if (getIntent().getExtras() != null) {
             if (getIntent().getExtras().get("location") != null) {
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void getLocation(View v) {
+    public void getLocation(LocationCallback callback) {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -175,6 +175,9 @@ public class MainActivity extends AppCompatActivity {
                         userLat = location.getLatitude();
                         userLong = location.getLongitude();
                         Log.d("Location", "Location got! It's " + userLat + " " + userLong);
+                        if (callback != null) {
+                            callback.completedTask(true);
+                        }
                     }
         });
     }
@@ -251,5 +254,9 @@ public class MainActivity extends AppCompatActivity {
 
     public double getUserLong() {
         return userLong;
+    }
+
+    public interface LocationCallback {
+        void completedTask(boolean status);
     }
 }

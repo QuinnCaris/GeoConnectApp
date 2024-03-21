@@ -25,16 +25,16 @@
                 android:clickable="true"
                 android:src="@drawable/searchbutton2" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/sora_semibold"
-                android:paddingStart="7dp"
-                android:paddingTop="140dp"
-                android:text="@string/Robin"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/sora_semibold"
+            android:paddingStart="7dp"
+            android:paddingTop="140dp"
+            android:text="@string/David"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -44,17 +44,19 @@
                 android:paddingTop="163dp"
                 android:text="Interested in Progra..."
                 android:textSize="12dp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="185dp"
-                android:paddingBottom="15dp"
-                android:paddingStart="7dp"
-                android:text="500m"
-                android:fontFamily="@font/sora_semibold"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/distanceTextHome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/sora_semibold"
+            android:paddingStart="7dp"
+            android:paddingTop="185dp"
+            android:paddingBottom="15dp"
+            android:text="Distance"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
         </androidx.cardview.widget.CardView>
 </LinearLayout>

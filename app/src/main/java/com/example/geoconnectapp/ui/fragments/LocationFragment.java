@@ -38,7 +38,6 @@ public class LocationFragment extends Fragment {
     private ImageView arrowView;
     private TextView distanceView;
 
-    // TODO: Implement message button to go to messageactivity
     public LocationFragment() {
         // Required empty public constructor
     }
@@ -108,7 +107,7 @@ public class LocationFragment extends Fragment {
         Runnable updateDistanceRunnable = new Runnable() {
             @SuppressLint("DefaultLocale")
             public void run() {
-                parentActivity.getLocation(new View(parentActivity));
+                parentActivity.getLocation(null);
                 userLat[0] = parentActivity.getUserLat();
                 userLong[0] = parentActivity.getUserLong();
                 distanceView.setText(String.format("%.2f m", trackingHandler.calculateDistance(userLat[0], userLong[0])));

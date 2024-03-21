@@ -1,5 +1,7 @@
 package com.example.geoconnectapp.ui.fragments;
 
+import static java.lang.Math.floor;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,16 +11,26 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.geoconnectapp.FriendsProfileActivity;
 import com.example.geoconnectapp.MainActivity;
+import com.example.geoconnectapp.MainActivity.LocationCallback;
 import com.example.geoconnectapp.MessageActivity;
 import com.example.geoconnectapp.R;
 import com.example.geoconnectapp.logic.Tracking;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirestoreKt;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +45,9 @@ public class HomeFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+    private TextView distanceText;
+    private FirebaseFirestore db;
+    private Tracking trackingHandler;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -65,21 +80,14 @@ public class HomeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        this.db = FirebaseFirestore.getInstance();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-//        ImageView searchButton = rootView.findViewById(R.id.searchButton);
-//        searchButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                MainActivity parentActivity = ((MainActivity)getActivity());
-//                parentActivity.getGeocacheLocationAndTrack(view);
-//
-//            }
-//        });
         return rootView;
     }
 
@@ -93,6 +101,37 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), FriendsProfileActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        this.distanceText = view.findViewById(R.id.distanceTextHome);
+        distanceText.setText("Loading");
+
+        DocumentReference docRef = db.collection("geocaches").document("0");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d("HomeFragment", "DocumentSnapshot data: " + document.getData());
+                        trackingHandler = new Tracking(document.getData());
+                        LocationCallback callback = taskStatus -> {
+                            if (taskStatus) {
+                                double userLat = ((MainActivity) getActivity()).getUserLat();
+                                double userLong = ((MainActivity) getActivity()).getUserLong();
+                                distanceText.setText(((int)(100 * floor(trackingHandler.calculateDistance(userLat, userLong) * 0.01))) + "m");
+                            } else {
+                                Log.e("HomeFragment", "This should never happen");
+                            }
+                        };
+                        ((MainActivity) getActivity()).getLocation(callback);
+                    } else {
+                        Log.d("HomeFragment", "No such document");
+                    }
+                } else {
+                    Log.d("HomeFragment", "get failed with ", task.getException());
+                }
             }
         });
     }
