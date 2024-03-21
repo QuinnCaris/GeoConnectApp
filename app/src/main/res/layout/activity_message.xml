@@ -31,20 +31,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:background="#9C27B0"
-        android:backgroundTint="#9C27B0"
-        android:outlineAmbientShadowColor="#9C27B0"
-        android:outlineSpotShadowColor="#9C27B0"
-        android:shadowColor="#9C27B0"
         android:text="Send"
         android:textColor="#000000"
-        android:textColorHighlight="#9C27B0"
-        android:textColorHint="#9C27B0"
-        android:textColorLink="#9C27B0"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:rippleColor="#9C27B0"
-        app:strokeColor="#9C27B0" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="369dp"
