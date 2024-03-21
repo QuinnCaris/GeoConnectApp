@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
             if (getIntent().getExtras().get("location") != null) {
                 if ((boolean)getIntent().getExtras().get("location")) {
                     getGeocacheLocationAndTrack();
+                    Toast.makeText(getApplicationContext(), "Finding geocache location...", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -131,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         trackingHandler = new Tracking(document.getData());
+                        Toast.makeText(getApplicationContext(), "Geocache is being tracked now!", Toast.LENGTH_SHORT).show();
                     } else {
                         Log.d(TAG, "No such document");
                     }
