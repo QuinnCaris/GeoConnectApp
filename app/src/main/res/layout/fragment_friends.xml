@@ -32,7 +32,7 @@
                         android:layout_width="85dp"
                         android:layout_height="85dp"
                         android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginEnd="10dp"
                         android:src="@drawable/profile_pic1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +42,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/search_friend_background"
-                        android:paddingHorizontal="16dp"
+                        android:paddingStart="12dp"
                         android:paddingVertical="4dp"
                         app:layout_constraintBottom_toBottomOf="@+id/profilePic2"
                         app:layout_constraintEnd_toStartOf="@+id/profilePic2"
@@ -78,16 +78,13 @@
 
                     <EditText
                         android:id="@+id/searchGeocache"
-                        android:layout_width="match_parent"
+                        android:layout_width="330dp"
                         android:layout_height="54dp"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginEnd="40dp"
                         android:layout_marginVertical="30dp"
                         android:background="@drawable/search_friend_background"
                         android:drawableStart="@drawable/search_normal"
                         android:drawableEnd="@drawable/setting"
-                        android:drawablePadding="10dp"
-                        android:ems="10"
+                        android:drawablePadding="20dp"
                         android:fontFamily="@font/sora"
                         android:hint="Search friends"
                         android:inputType="text|textPersonName"
@@ -98,12 +95,8 @@
                         android:textColorHint="#989898"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-                        app:layout_constraintVertical_bias="0.479" />
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
@@ -111,7 +104,6 @@
             android:id="@+id/scrollFriends"
             android:layout_width="0dp"
             android:layout_height="507dp"
-            android:layout_marginTop="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
