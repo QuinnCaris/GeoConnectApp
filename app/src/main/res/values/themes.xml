@@ -2,9 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.GeoConnectApp" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/background_white</item>
+        <item name="colorOnPrimary">@color/background_white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
@@ -12,11 +11,17 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="fontFamily">@font/sora</item>
+        <item name="backgroundColor">@color/background_white</item>
     </style>
 
     <style name="Theme.GeoConnectApp.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="circular">
+        <item name="cornerSize">50%</item>
     </style>
 
     <style name="Theme.GeoConnectApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

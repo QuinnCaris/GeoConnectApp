@@ -14,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.geoconnectapp.databinding.ActivityLoginBinding;
+import com.example.geoconnectapp.databinding.ActivityRegistrationPageBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -32,6 +34,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import java.util.concurrent.TimeUnit;
 
 public class RegistrationPage extends AppCompatActivity {
+    private ActivityRegistrationPageBinding binding;
 
     private static final String TAG = "PhoneAuthActivity";
     private FirebaseAuth mAuth;
@@ -99,7 +102,8 @@ public class RegistrationPage extends AppCompatActivity {
             }
         };
 
-        setContentView(R.layout.activity_registration_page);
+        binding = ActivityRegistrationPageBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         editTextEmail = findViewById(R.id.signInEmail);
         editTextPhoneNum = findViewById(R.id.signInUserPhoneNum);

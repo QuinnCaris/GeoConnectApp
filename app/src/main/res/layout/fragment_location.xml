@@ -16,7 +16,7 @@
             android:id="@+id/arrow"
             android:layout_width="220dp"
             android:layout_height="220dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:src="@drawable/greenarrow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,9 +26,10 @@
             android:id="@+id/distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginVertical="30dp"
             android:fontFamily="@font/sora_semibold"
             android:textSize="32sp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomdescription"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/arrow" />
@@ -36,7 +37,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bottomdescription"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="0dp"
             android:background="@drawable/bottom_nav_shape"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -110,8 +111,9 @@
                 android:id="@+id/constraintLayout2"
                 android:layout_width="330dp"
                 android:layout_height="52dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginVertical="30dp"
                 android:background="@drawable/border"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/reminderLayout"
                 app:layout_constraintStart_toStartOf="@+id/reminderLayout"
                 app:layout_constraintTop_toBottomOf="@+id/reminderLayout">
@@ -121,11 +123,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:fontFamily="@font/sora_semibold"
                     android:text="Robin"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:fontFamily="@font/sora_semibold"
                     app:layout_constraintBottom_toTopOf="@+id/textView5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -137,8 +139,8 @@
                     android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/interest"
                     android:fontFamily="@font/sora"
+                    android:text="Interested in programming"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -148,7 +150,7 @@
                     android:id="@+id/imageView"
                     android:layout_width="52dp"
                     android:layout_height="52dp"
-                    android:src="@drawable/profilepic2"
+                    android:src="@drawable/profilepic3"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -159,10 +161,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:clickable="true"
-                    android:src="@drawable/message_icon"
+                    android:src="@drawable/addfriend"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
