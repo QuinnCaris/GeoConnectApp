@@ -96,7 +96,7 @@ public class LocationFragment extends Fragment {
             public void run() {
                 userLat[0] = parentActivity.getUserLat();
                 userLong[0] = parentActivity.getUserLong();
-                arrowView.setRotation((float) trackingHandler.calculateAngleDiff(userLat[0], userLong[0]) - 90);
+                arrowView.setRotation((float) trackingHandler.calculateAngleDiff(userLat[0], userLong[0]));
                 Log.d("Arrow runnable", "Updated arrow!");
                 handler.postDelayed(this, 1000);
             }
