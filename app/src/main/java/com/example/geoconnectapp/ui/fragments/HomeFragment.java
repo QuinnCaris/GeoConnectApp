@@ -100,7 +100,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), FriendsProfileActivity.class);
-                // TODO: pass distance as intent to friendprofile
                 intent.putExtra("distance", distanceText.getText().toString());
                 startActivity(intent);
             }

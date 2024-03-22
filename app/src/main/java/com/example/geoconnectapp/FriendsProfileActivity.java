@@ -61,7 +61,6 @@ public class FriendsProfileActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // TODO: ProfilePageDistance update
         distanceView.setText(getIntent().getStringExtra("distance"));
     }
 }
