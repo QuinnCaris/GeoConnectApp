@@ -19,11 +19,15 @@ import com.example.geoconnectapp.ui.fragments.MessageFriendFragment;
 import com.example.geoconnectapp.ui.fragments.MessageUserFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -47,11 +51,36 @@ public class MessageActivity extends AppCompatActivity {
             for (String message : strings) {
                 addMessageFriendToLayout(message);
             }
+            db.collection("messages/Robin_messages/david")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                List<Map<String, Object>> messagesUser = new ArrayList<>();
+                                for (QueryDocumentSnapshot doc : task.getResult()) {
+                                    Map<String, Object> docMap = doc.getData();
+                                    messagesUser.add(docMap);
+                                }
+                                messagesUser.sort(new Comparator<Map<String, Object>>() {
+                                    @Override
+                                    public int compare(Map<String, Object> t0, Map<String, Object> t1) {
+                                        return Long.compare((long)t0.get("rank"), (long)t1.get("rank"));
+                                    }
+                                });
+                                for (Map<String, Object> message : messagesUser) {
+                                    addMessageUserToLayout((String)message.get("text"));
+                                }
+                            } else {
+                                Log.e("MessageActivity", "Couldn't retrieve messages");
+                            }
+                        }
+                    });
         };
 
         this.loadingText = findViewById(R.id.loadingText);
 
-        db.collection("messages")
+        db.collection("messages/David_messages/robin")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -62,7 +91,7 @@ public class MessageActivity extends AppCompatActivity {
                                 Map<String, Object> documentMap = document.getData();
 
                                 Log.d("MessageActivity", document.getId() + " => " + document.getData());
-                                messages.add((String)documentMap.get("message"));
+                                messages.add((String)documentMap.get("text"));
                             }
                             callback.accept(messages);
                         } else {
@@ -95,6 +124,27 @@ public class MessageActivity extends AppCompatActivity {
         String message = editTextMessage.getText().toString().trim();
         if (!message.isEmpty()) {
             addMessageUserToLayout(message);
+            db.collection("messages/Robin_messages/david")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            List<Map<String, Object>> messages = new ArrayList<>();
+                            if (task.isSuccessful()) {
+                                long highestRank = 0;
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Map<String, Object> documentMap = document.getData();
+                                    if ((long)documentMap.get("rank") > highestRank) {
+                                        highestRank = (long)documentMap.get("rank");
+                                    }
+                                    Log.d("MessageActivity", document.getId() + " => " + document.getData());
+                                }
+                                addMessageToDatabase(message, highestRank);
+                            } else {
+                                Log.d("MessageActivity", "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
             editTextMessage.setText(""); // Clear the editText
         }
     }
@@ -103,6 +153,15 @@ public class MessageActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.linearLayoutMessages, new MessageUserFragment(message), "message_fragment_")
                 .commit();
+    }
+
+    public void addMessageToDatabase(String message, long rank) {
+        Map<String, Object> document = new HashMap<>();
+        document.put("text", message);
+        document.put("rank", rank + 1);
+
+        db.collection("messages/Robin_messages/david")
+                .add(document);
     }
 
     private void addMessageFriendToLayout(String message) {
