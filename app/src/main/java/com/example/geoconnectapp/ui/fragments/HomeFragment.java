@@ -15,11 +15,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.geoconnectapp.FriendsProfileActivity;
+import com.example.geoconnectapp.LoginActivity;
 import com.example.geoconnectapp.MainActivity;
 import com.example.geoconnectapp.MainActivity.LocationCallback;
 import com.example.geoconnectapp.MessageActivity;
@@ -27,6 +29,7 @@ import com.example.geoconnectapp.R;
 import com.example.geoconnectapp.logic.Tracking;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -46,8 +49,10 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private TextView distanceText;
+    private Button logOutButton;
     private FirebaseFirestore db;
     private Tracking trackingHandler;
+    private FirebaseAuth mAuth;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -95,6 +100,8 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ImageView searchButton = view.findViewById(R.id.searchButton);
+        logOutButton = view.findViewById(R.id.logOutButton);
+        mAuth = FirebaseAuth.getInstance();
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +111,16 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        logOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth.signOut();
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         this.distanceText = view.findViewById(R.id.distanceTextHome);
         distanceText.setText("Loading");
