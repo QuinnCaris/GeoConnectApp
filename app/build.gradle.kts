@@ -16,7 +16,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
+        multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -64,5 +64,8 @@ dependencies {
     // For example, add the dependencies for Firebase Authentication and Cloud Firestore
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
+
+    // MultiDex
+    implementation("androidx.multidex:multidex:2.0.1")
 
 }

@@ -26,6 +26,8 @@ import com.example.geoconnectapp.MainActivity;
 import com.example.geoconnectapp.MainActivity.LocationCallback;
 import com.example.geoconnectapp.MessageActivity;
 import com.example.geoconnectapp.R;
+import com.example.geoconnectapp.dataModel.PreferenceManager;
+import com.example.geoconnectapp.dataModel.User;
 import com.example.geoconnectapp.logic.Tracking;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,6 +36,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirestoreKt;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +57,9 @@ public class HomeFragment extends Fragment {
     private FirebaseFirestore db;
     private Tracking trackingHandler;
     private FirebaseAuth mAuth;
+    private TextView name;
+
+    private PreferenceManager preferenceManager;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -101,7 +108,11 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ImageView searchButton = view.findViewById(R.id.searchButton);
         logOutButton = view.findViewById(R.id.logOutButton);
+        name = view.findViewById(R.id.name);
         mAuth = FirebaseAuth.getInstance();
+        preferenceManager = new PreferenceManager(requireContext());
+
+        name.setText(preferenceManager.getString(User.KEY_NAME));
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override

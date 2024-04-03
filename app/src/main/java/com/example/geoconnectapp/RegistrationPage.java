@@ -14,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.geoconnectapp.dataModel.PreferenceManager;
+import com.example.geoconnectapp.dataModel.User;
 import com.example.geoconnectapp.databinding.ActivityLoginBinding;
 import com.example.geoconnectapp.databinding.ActivityRegistrationPageBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,11 +32,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class RegistrationPage extends AppCompatActivity {
     private ActivityRegistrationPageBinding binding;
+    private PreferenceManager preferenceManager;
 
     private static final String TAG = "PhoneAuthActivity";
     private FirebaseAuth mAuth;
@@ -43,7 +48,7 @@ public class RegistrationPage extends AppCompatActivity {
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
     private TextView login;
-
+    private EditText editTextName;
     private EditText editTextEmail;
     private EditText editTextPhoneNum;
     private EditText editTextPW;
@@ -105,6 +110,9 @@ public class RegistrationPage extends AppCompatActivity {
         binding = ActivityRegistrationPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        preferenceManager = new PreferenceManager(getApplicationContext());
+
+        editTextName = findViewById(R.id.signInName);
         editTextEmail = findViewById(R.id.signInEmail);
         editTextPhoneNum = findViewById(R.id.signInUserPhoneNum);
         editTextPW = findViewById(R.id.signInPassword);
@@ -134,7 +142,8 @@ public class RegistrationPage extends AppCompatActivity {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             // Check conditions (e.g., email and password not empty)
-            boolean conditionsFulfilled = !editTextEmail.getText().toString().isEmpty()
+            boolean conditionsFulfilled = !editTextName.getText().toString().isEmpty()
+                    && !editTextEmail.getText().toString().isEmpty()
                     && !editTextPhoneNum.getText().toString().isEmpty()
                     && !editTextPW.getText().toString().isEmpty();
 
@@ -146,6 +155,24 @@ public class RegistrationPage extends AppCompatActivity {
         public void afterTextChanged(Editable s) {
         }
     };
+
+    private void register() {
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        HashMap<String, Object> user = new HashMap<>();
+        user.put(User.KEY_NAME, editTextName.getText().toString());
+        user.put(User.KEY_EMAIL, editTextEmail.getText().toString());
+        user.put(User.KEY_PASSWORD, editTextPW.getText().toString());
+        database.collection(User.KEY_COLLECTION_USERS)
+                .add(user)
+                .addOnSuccessListener(documentReference -> {
+                    preferenceManager.putString(User.KEY_USER_ID, documentReference.getId());
+                    preferenceManager.putString(User.KEY_NAME, editTextName.getText().toString());
+                    Log.d(TAG, "name registered");
+                })
+                .addOnFailureListener(exception -> {
+                    Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
 
     public void signUp(View v) {
         Log.w(TAG, "signup button worked");
@@ -179,7 +206,11 @@ public class RegistrationPage extends AppCompatActivity {
                             Toast.makeText(RegistrationPage.this, "User made an account!",
                                     Toast.LENGTH_LONG).show();
 
-                            startActivity(new Intent(RegistrationPage.this, MainActivity.class));
+                            register();
+
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
