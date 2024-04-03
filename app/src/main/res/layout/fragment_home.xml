@@ -43,7 +43,7 @@
                             android:layout_width="85dp"
                             android:layout_height="85dp"
                             android:src="@drawable/profile_pic1"
-                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/logOutButton"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,9 +52,7 @@
                             android:layout_height="wrap_content"
                             android:paddingVertical="4dp"
                             app:layout_constraintBottom_toBottomOf="@+id/profilePic"
-                            app:layout_constraintEnd_toStartOf="@+id/profilePic"
-                            app:layout_constraintHorizontal_bias="0.26"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/searchGeocache"
                             app:layout_constraintTop_toTopOf="@+id/profilePic"
                             app:layout_constraintVertical_bias="0.6">
 
@@ -85,22 +83,6 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <Button
-                            android:id="@+id/ViewProfile"
-                            android:layout_width="150dp"
-                            android:layout_height="40dp"
-                            android:layout_marginEnd="30dp"
-                            android:backgroundTint="#313131"
-                            android:fontFamily="@font/sora_light"
-                            android:text="View Profile"
-                            android:textSize="11dp"
-                            android:textStyle="bold"
-                            app:cornerRadius="10dp"
-                            app:layout_constraintBottom_toTopOf="@+id/searchGeocache"
-                            app:layout_constraintEnd_toStartOf="@+id/logOutButton"
-                            app:layout_constraintStart_toStartOf="@+id/searchGeocache"
-                            app:layout_constraintTop_toBottomOf="@+id/profilePic" />
-
-                        <Button
                             android:id="@+id/logOutButton"
                             android:layout_width="150dp"
                             android:layout_height="40dp"
@@ -116,14 +98,14 @@
 
                         <EditText
                             android:id="@+id/searchGeocache"
-                            android:layout_width="330dp"
+                            android:layout_width="0dp"
                             android:layout_height="54dp"
-                            android:layout_marginEnd="12dp"
+                            android:layout_marginStart="15dp"
                             android:layout_marginBottom="25dp"
                             android:background="@drawable/search_background"
                             android:drawableStart="@drawable/search_normal"
                             android:drawableEnd="@drawable/setting"
-                            android:drawablePadding="10dp"
+                            android:drawablePadding="0dp"
                             android:ems="10"
                             android:fontFamily="@font/sora"
                             android:hint="Search People"
@@ -136,8 +118,7 @@
                             android:textSize="16sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="@+id/title" />
+                            app:layout_constraintStart_toStartOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

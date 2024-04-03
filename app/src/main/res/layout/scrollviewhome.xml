@@ -36,14 +36,14 @@
             android:textSize="16dp"
             android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/sora"
-                android:paddingStart="7dp"
-                android:paddingTop="163dp"
-                android:text="Interested in Progra..."
-                android:textSize="12dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/sora"
+            android:paddingStart="7dp"
+            android:paddingTop="163dp"
+            android:text="Interested in progra..."
+            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/distanceTextHome"
