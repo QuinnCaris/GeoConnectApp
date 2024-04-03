@@ -136,14 +136,18 @@ public class HomeFragment extends Fragment {
                         trackingHandler = new Tracking(document.getData());
                         LocationCallback callback = taskStatus -> {
                             if (taskStatus) {
-                                double userLat = ((MainActivity) getActivity()).getUserLat();
-                                double userLong = ((MainActivity) getActivity()).getUserLong();
-                                distanceText.setText(((int)(100 * floor(trackingHandler.calculateDistance(userLat, userLong) * 0.01))) + "m");
+                                if (isAdded()) {
+                                    double userLat = ((MainActivity) getActivity()).getUserLat();
+                                    double userLong = ((MainActivity) getActivity()).getUserLong();
+                                    distanceText.setText(((int)(100 * floor(trackingHandler.calculateDistance(userLat, userLong) * 0.01))) + "m");
+                                }
                             } else {
                                 Log.e("HomeFragment", "This should never happen");
                             }
                         };
-                        ((MainActivity) getActivity()).getLocation(callback);
+                        if (isAdded()) {
+                            ((MainActivity) getActivity()).getLocation(callback);
+                        }
                     } else {
                         Log.d("HomeFragment", "No such document");
                     }
