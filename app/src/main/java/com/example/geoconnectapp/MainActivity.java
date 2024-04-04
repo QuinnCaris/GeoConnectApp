@@ -7,6 +7,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.geoconnectapp.dataModel.PreferenceManager;
+import com.example.geoconnectapp.dataModel.User;
 import com.example.geoconnectapp.databinding.ActivityMainBinding;
 import com.example.geoconnectapp.logic.SensorHandler;
 import com.example.geoconnectapp.logic.Tracking;
@@ -33,9 +36,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,21 +51,29 @@ public class MainActivity extends AppCompatActivity {
     private SensorHandler sensorHandler;
     private double userLat = Double.NaN;
     private double userLong = Double.NaN;
+    private Button logOutButton;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private Tracking trackingHandler;
     private final String TAG = "MainActivity";
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private PreferenceManager preferenceManager;
+    private FirebaseFirestore db;
 
     ActivityMainBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        logOutButton = findViewById(R.id.logOutButton);
         replaceFragment(new HomeFragment());
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        db = FirebaseFirestore.getInstance();
+
+        preferenceManager = new PreferenceManager(getApplicationContext());
 
         sensorHandler = new SensorHandler();
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -96,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
+
 
     public void updateGeocacheLocation(View v) {
         // Create a new user with a first and last name

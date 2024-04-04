@@ -119,20 +119,4 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
-    private void addDataToFirestore() {
-        FirebaseFirestore database = FirebaseFirestore.getInstance();
-        HashMap<String, Object> data = new HashMap<>();
-        data.put("first name", "Robin");
-        data.put("last name", "Chung");
-        database.collection("users")
-                .add(data)
-                .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(getApplicationContext(), "Data Inserted", Toast.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(exception -> {
-                    Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
-                });
-
-    }
 }

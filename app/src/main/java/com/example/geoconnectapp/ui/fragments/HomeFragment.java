@@ -34,9 +34,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirestoreKt;
+import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 /**
@@ -106,6 +109,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        MainActivity parentActivity = ((MainActivity)getActivity());
         ImageView searchButton = view.findViewById(R.id.searchButton);
         logOutButton = view.findViewById(R.id.logOutButton);
         name = view.findViewById(R.id.name);
@@ -113,6 +117,7 @@ public class HomeFragment extends Fragment {
         preferenceManager = new PreferenceManager(requireContext());
 
         name.setText(preferenceManager.getString(User.KEY_NAME));
+        getToken();
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +131,10 @@ public class HomeFragment extends Fragment {
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                deleteToken();
                 mAuth.signOut();
+                Log.d("Log out", "Logging out");
+                Toast.makeText(getContext(), "Logging out...", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);
             }
@@ -167,5 +175,48 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void getToken() {
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(this::updateToken);
+    }
+
+    private void updateToken(String token) {
+        DocumentReference documentReference =
+                db.collection(User.KEY_COLLECTION_USERS).document(
+                        preferenceManager.getString(User.KEY_USER_ID)
+                );
+        documentReference.update(User.KEY_FCM_TOKEN, token)
+                .addOnSuccessListener(unused -> Log.d("Token", "Token Updated"))
+                .addOnFailureListener(e -> Log.d("Token", "Unable to update token"));
+    }
+
+    private void deleteToken() {
+        // Retrieve the user ID from PreferenceManager
+        String userId = preferenceManager.getString(User.KEY_USER_ID);
+        if (userId != null) {
+            // User ID is not null, proceed with deleting the token
+            DocumentReference documentReference =
+                    db.collection(User.KEY_COLLECTION_USERS).document(userId);
+            documentReference.update(User.KEY_FCM_TOKEN, FieldValue.delete())
+                    .addOnSuccessListener(unused -> {
+                        // Token deletion successful
+                        preferenceManager.clear();
+                        Log.d("Token", "Token deleted");
+                        // Call signOut method after token deletion is successful
+                        mAuth.signOut();
+                        Log.d("Log out", "Logging out");
+                        Toast.makeText(getContext(), "Logging out...", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getContext(), LoginActivity.class);
+                        startActivity(intent);
+                    })
+                    .addOnFailureListener(e -> {
+                        // Token deletion failed
+                        Log.e("Token", "Unable to delete token", e);
+                    });
+        } else {
+            // User ID is null, unable to delete token
+            Log.e("Token", "User ID is null, unable to delete token");
+        }
     }
 }
